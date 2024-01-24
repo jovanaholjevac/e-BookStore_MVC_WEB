@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace e_BookStore.DataAccess.Repository.IRepository
 {
-    public interface IShoppingCartRepository : IRepository<ShoppingCart>
+    public interface IOrderHeaderRepository : IRepository<OrderHeader>
     {
-        void Update(ShoppingCart obj);
+        void Update(OrderHeader obj);
     }
 }
