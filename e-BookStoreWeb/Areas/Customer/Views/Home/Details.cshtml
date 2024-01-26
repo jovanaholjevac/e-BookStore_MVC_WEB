@@ -43,6 +43,14 @@
                         <div class="row pl-2 my-3">
                             <p class="text-secondary lh-sm">@Html.Raw(Model.Product.Description)</p>
                         </div>
+                        <div class="mb-3 row">
+                            <label class="form-label mt-4">Leave a review</label>
+                            <input class="form-control" />
+                            
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <button asp-action="Index" type="submit" class="btn btn-secondary form-control">Submit</button>
+                        </div>
                         <div class="row pl-2 mb-3">
                             <div class="col-md-4">
                                 <div class="input-group mb-3">

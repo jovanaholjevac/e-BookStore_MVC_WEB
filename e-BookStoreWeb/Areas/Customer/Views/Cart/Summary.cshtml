@@ -13,7 +13,7 @@
 						</h5>
 					</div>
 					<div class="col-6 text-end">
-						<a class="btn btn-outline-danger btn-sm">Back to Cart</a>
+						<a asp-action="Index" class="btn btn-outline-danger btn-sm">Back to Cart</a>
 					</div>
 				</div>
 			</div>
@@ -75,15 +75,52 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-12 col-lg-5 offset-lg-1">
+							<div class="row my-1">
+								<div class="col-3">
+									<label>Card number</label>
+								</div>
+								<div class="col-9">
+									<input class="form-control" />
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label>MM/YY</label>
+								</div>
+								<div class="col-9">
+									<input class="form-control" />
+								</div>
+							</div>
+							<div class="row my-1">
+								<div class="col-3">
+									<label>CVV</label>
+								</div>
+								<div class="col-9">
+									<input class="form-control" />
+								</div>
+							</div>
+							<h4 class="d-flex justify-content-between align-items-center mb-3">
+								<span class="text-info">Order Summary:</span>
+							</h4>
+							<ul class="list-group mb-3">
+								<li class="list-group-item d-flex justify-content-between bg-light">
+									<small class="text-info">Total (RSD)</small>
+									<strong class="text-info">@Model.OrderTotal.ToString() din</strong>
+								</li>
+							</ul>
+						</div>
 						
 					</div>
 				</div>
 			</div>
 			<div class="card-footer">
 				<div class="row">
-					
 					<div class="col-12 col-md-4">
-						<button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
+						<button asp-area="Customer" asp-controller="Home" asp-action="Index" type="submit" value="Place Order" class="btn btn-primary form-control">Pay on delivery</button>
+					</div>
+					<div class="col-12 col-md-4">
+						<button asp-area="Customer" asp-controller="Home" asp-action="Index" type="submit" value="Place Order" class="btn btn-primary form-control">Pay with card</button>
 					</div>
 				</div>
 			</div>
