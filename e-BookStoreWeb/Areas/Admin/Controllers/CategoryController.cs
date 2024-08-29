@@ -3,6 +3,7 @@ using e_BookStore.DataAccess.Repository.IRepository;
 using e_BookStore.Models;
 using e_BookStore.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_BookStoreWeb.Areas.Admin.Controllers
@@ -71,7 +72,7 @@ namespace e_BookStoreWeb.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Delete(int? id) //? da vrednost moze biti nullable
+        /*public IActionResult Delete(int? id) //? da vrednost moze biti nullable
         {
             if (id == null || id == 0)
             {
@@ -100,5 +101,33 @@ namespace e_BookStoreWeb.Areas.Admin.Controllers
             return RedirectToAction("Index");
 
         }
+        */
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
+            return Json(new { data = objCategoryList });
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var categoryToBeDeleted = _unitOfWork.Category.Get(u => u.Id == id);
+            if (categoryToBeDeleted == null)
+            {
+                return Json(new { success = false, message = "Error while deleting" });
+            }
+
+            _unitOfWork.Category.Remove(categoryToBeDeleted);
+            _unitOfWork.Save();
+
+            return Json(new { success = true, message = "Delete Successful" });
+        }
+
+        #endregion
+
     }
 }

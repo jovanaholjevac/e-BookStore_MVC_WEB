@@ -21,10 +21,30 @@ namespace e_BookStoreWeb.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        /*public IActionResult Index()
         {
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties:"Category");
             return View(productList);
+        }*/
+        public IActionResult Index(string searchString, int pageNumber = 1, int pageSize = 8)
+        {
+            ViewData["CurrentFilter"] = searchString;
+
+            IEnumerable<Product> products;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = _unitOfWork.Product.GetAll(includeProperties: "Category")
+                            .Where(p => p.Title.ToLower().Contains(searchString.ToLower()));
+            }
+            else
+            {
+                products = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            }
+
+            var paginatedProducts = PaginatedList<Product>.Create(products, pageNumber, pageSize);
+
+            return View(paginatedProducts);
         }
 
         public IActionResult Details(int productId)
@@ -68,18 +88,9 @@ namespace e_BookStoreWeb.Areas.Customer.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Index2(string searchString) //pretraga
+        public IActionResult Index2(string searchString, int pageNumber = 1, int pageSize = 8)
         {
-            ViewData["CurrentFilter"] = searchString;
-
-            var products = _unitOfWork.Product.GetAll(includeProperties: "Category");
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                products = products.Where(p => p.Title.ToLower().Contains(searchString.ToLower()));
-            }
-
-            return View("Index", products); // Use the same view as Index
+            return Index(searchString, pageNumber, pageSize);
         }
 
         public IActionResult Privacy()

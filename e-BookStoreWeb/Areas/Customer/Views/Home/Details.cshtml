@@ -1,75 +1,65 @@
 ﻿@model ShoppingCart
 
 <form method="post">
-    <input hidden asp-for="ProductId"/>
-    <div class="card shadow border-0 mt-4 mb-4">
-        <div class="card-header bg-dark bg-gradient text-light py-4">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h3 class="text-white text-uppercase">@Model.Product.Title</h3>
-                    <p class="text-white-50 fw-semibold mb-0">by @Model.Product.Author</p>
+    <input hidden asp-for="ProductId" />
+    <div class="card shadow-sm border-0 mt-4 mb-4">
+        <div class="card-header bg-secondary bg-gradient text-light ml-0 py-4">
+            <div class="row text-center">
+                <div class="col">
+                    <h3 class="text-white text-uppercase mb-1">@Model.Product.Title</h3>
+                    <p class="text-white-50 fw-semibold">by @Model.Product.Author</p>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="py-3">
                 <div class="row">
-                    <div class="col-6 col-md-2 offset-lg-1 pb-1">
-                        <a asp-action="Index" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
-                            <small>Back to home</small>
+                    <div class="col-md-2 mb-3">
+                        <a asp-action="Index" class="btn btn-outline-primary bg-gradient fw-semibold btn-sm text-uppercase w-100">
+                            <i class="bi bi-arrow-left"></i> Back to home
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
-                        <img src="@Model.Product.ImageUrl" width="100%" class="rounded" />
+                    <div class="col-lg-4 mb-4 text-center">
+                        <img src="@Model.Product.ImageUrl" width="100%" class="rounded shadow-sm" />
                     </div>
-                    <div class="col-12 col-lg-6 offset-lg-1">
-                        <div class="row ps-2">
-                            <h6 class="text-dark text-opacity-50 ">Category : @Model.Product.Category.Name</h6>
+                    <div class="col-lg-8">
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <h6 class="text-muted">Category:</h6>
+                                <p class="text-dark">@Model.Product.Category.Name</p>
+                                <h6 class="text-muted">Author:</h6>
+                                <p class="text-dark">@Model.Product.Author</p>
+                                <h6 class="text-muted">ISBN:</h6>
+                                <p class="text-dark">@Model.Product.ISBN</p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <h6 class="text-muted">Price:</h6>
+                                <p class="text-danger display-4"><b>@Model.Product.Price.ToString("c", new System.Globalization.CultureInfo("fr-FR"))</b></p>
+                            </div>
                         </div>
-                        <div class="row ps-2">
-                            <h6 class="text-dark text-opacity-50 ">Author : @Model.Product.Author</h6>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <p class="text-secondary">@Html.Raw(Model.Product.Description)</p>
+                            </div>
                         </div>
-                        <div class="row ps-2">
-                            <h6 class="text-dark text-opacity-50 ">ISBN : @Model.Product.ISBN</h6>
-                        </div>
-                        <div class="row ps-2">
-                            <h6 class="text-dark text-opacity-50  pb-2">
-                                Price:
-                                <b class="text-danger">
-                                    @Model.Price.ToString("c", new System.Globalization.CultureInfo("fr-FR"))
-                                </b>
-                            </h6>
-                        </div>
-                       
-                        <div class="row pl-2 my-3">
-                            <p class="text-secondary lh-sm">@Html.Raw(Model.Product.Description)</p>
-                        </div>
-                        <div class="row pl-2 mb-3">
+                        <div class="row mb-4">
                             <div class="col-md-4">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text bg-primary text-white border-0 fw-semibold"
-                                          id="inputGroup-sizing-default">
-                                        Count
-                                    </span>
-                                    <input asp-for="Count" type="number" value="1" class="form-control text-end"
-                                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-
+                                <label for="productCount" class="form-label text-muted">Quantity</label>
+                                <div class="input-group">
+                                    <input asp-for="Count" id="productCount" type="number" value="1" class="form-control text-end" />
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-md-6 pb-1">
-                                <button type="submit"
-                                        class="btn btn-primary bg-gradient  w-100 py-2 text-uppercase fw-semibold">
-                                    Add to Cart
-                                    <i class="bi bi-cart"></i>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary bg-gradient w-100 py-2 text-uppercase fw-semibold">
+                                    <i class="bi bi-cart-fill"></i> Add to Cart
                                 </button>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

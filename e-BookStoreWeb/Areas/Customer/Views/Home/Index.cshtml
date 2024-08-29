@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Product>
+﻿@*@model IEnumerable<Product>
 
 <div class="row mb-4">
     <div class="col-12">
@@ -36,3 +36,89 @@
         </div>
     }
 </div>
+*@
+
+@model PaginatedList<Product>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <form asp-action="Index" method="get">
+            <div class="input-group">
+                <input type="text" name="searchString" class="form-control" placeholder="Search for books..." value="@ViewData["CurrentFilter"]" />
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row pb-3">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-sm-6 mb-4">
+            <a asp-action="Details"
+               asp-route-productId="@product.Id"
+               class="text-decoration-none text-dark">
+                <div class="card border-0 p-3 shadow border-top border-5 rounded h-100 hover-card">
+                    <img src="@product.ImageUrl" class="card-img-top rounded" />
+                    <div class="card-body pb-0">
+                        <div class="pl-1">
+                            <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
+                            <p class="card-title text-secondary text-center">@product.Author</p>
+                        </div>
+                        <div class="pl-1">
+                            <p class="text-dark text-opacity-75 text-center mb-0">
+                                Price: <b class="text-danger">@product.Price.ToString("c", new System.Globalization.CultureInfo("fr-FR"))</b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+<!-- Pagination Controls -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+            </li>
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>
