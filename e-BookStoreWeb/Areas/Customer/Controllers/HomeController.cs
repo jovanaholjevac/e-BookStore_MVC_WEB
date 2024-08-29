@@ -3,6 +3,7 @@ using e_BookStore.Models;
 using e_BookStore.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -65,6 +66,20 @@ namespace e_BookStoreWeb.Areas.Customer.Controllers
             TempData["success"] = "Cart updated successfully";
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Index2(string searchString) //pretraga
+        {
+            ViewData["CurrentFilter"] = searchString;
+
+            var products = _unitOfWork.Product.GetAll(includeProperties: "Category");
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.Title.ToLower().Contains(searchString.ToLower()));
+            }
+
+            return View("Index", products); // Use the same view as Index
         }
 
         public IActionResult Privacy()

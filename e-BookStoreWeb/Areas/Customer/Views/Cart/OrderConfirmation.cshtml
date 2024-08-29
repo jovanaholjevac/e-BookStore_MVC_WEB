@@ -1,0 +1,32 @@
+﻿@model int
+
+<div class="container pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <!-- Static Green Checkmark Icon -->
+            <div class="checkmark-circle">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+
+            <h1 class="text-primary mt-4">Order Placed Successfully!</h1>
+            <p class="lead">Your Order Number is: <strong>@Model</strong></p>
+            <p class="text-muted">Thank you for your purchase! Your order has been placed successfully.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .checkmark-circle {
+        font-size: 4rem;
+        color: #28a745;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    p.lead {
+        font-size: 1.25rem;
+    }
+</style>

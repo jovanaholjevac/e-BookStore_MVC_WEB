@@ -1,35 +1,38 @@
 ﻿@model IEnumerable<Product>
 
+<div class="row mb-4">
+    <div class="col-12">
+        <form asp-action="Index2" method="get">
+            <div class="input-group">
+                <input type="text" name="searchString" class="form-control" placeholder="Search for books..." value="@ViewData["CurrentFilter"]" />
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="row pb-3">
-    @foreach(var product in Model)
+    @foreach (var product in Model)
     {
-        <div class="col-lg-3 col-sm-6">
-            <div class="row p-2">
-                <div class="col-12 p-1">
-                    <div class="card border-0 p-3 shadow border-top border-5 rounded">
-                        <img src="@product.ImageUrl" class="card-img-top rounded" />
-                        <div class="card-body pb-0">
-                            <div class=" pl-1">
-                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
-                                <p class="card-title text-secondary text-center">@product.Author</p>
-                            </div>
-                            <div class="pl-1">
-                                <p class="text-dark text-opacity-75 text-center mb-0">
-                                    Price: <b class="text-danger">@product.Price.ToString().00 din</b>
-                                    
-                                </p>
-                            </div>
+        <div class="col-lg-3 col-sm-6 mb-4">
+            <a asp-action="Details"
+               asp-route-productId="@product.Id"
+               class="text-decoration-none text-dark">
+                <div class="card border-0 p-3 shadow border-top border-5 rounded h-100 hover-card">
+                    <img src="@product.ImageUrl" class="card-img-top rounded" />
+                    <div class="card-body pb-0">
+                        <div class="pl-1">
+                            <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
+                            <p class="card-title text-secondary text-center">@product.Author</p>
                         </div>
-                        <div class="mt-4">
-                            <a asp-action="Details"
-                               asp-route-productId="@product.Id"
-                               class="btn btn-primary bg-gradient border-0 form-control">
-                                Details
-                            </a>
+                        <div class="pl-1">
+                            <p class="text-dark text-opacity-75 text-center mb-0">
+                                Price: <b class="text-danger">@product.Price.ToString("c", new System.Globalization.CultureInfo("fr-FR"))</b>
+                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     }
 </div>

@@ -11,6 +11,7 @@ namespace e_BookStore.DataAccess.Repository.IRepository
         ICategoryRepository Category { get; }
         IProductRepository Product { get; }
         IShoppingCartRepository ShoppingCart { get; }
+        IApplicationUserRepository ApplicationUser { get; }
         IOrderDetailRepository OrderDetail { get; }
         IOrderHeaderRepository OrderHeader { get; }
 

@@ -1,22 +1,37 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 0; /* Remove bottom margin */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full viewport height */
+}
+
+footer {
+    margin-top: auto; /* Push the footer to the bottom */
+    background-color: #f8f9fa; /* Optional: add a background color */
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid #eaeaea; /* Optional: add a border on top */
+}
+
+.hover-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-card:hover {
+    transform: scale(1.03); /* Slightly enlarge the card */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a stronger shadow on hover */
 }
